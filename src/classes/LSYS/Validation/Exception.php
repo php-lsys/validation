@@ -28,7 +28,7 @@ class Exception extends \LSYS\Exception{
 	 * @param array $error
 	 * @return $this
 	 */
-	public function set_validation_error(array $error){
+	public function setValidationError(array $error){
 		$msg=[];
 		foreach ($error as $v){
 			if (is_string($v))$msg[]=$v;
@@ -41,7 +41,7 @@ class Exception extends \LSYS\Exception{
 	 * get validateion message
 	 * @return array
 	 */
-	public function get_validation_error(){
+	public function getValidationError(){
 		return $this->_validation_error;
 	}
 }

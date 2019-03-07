@@ -19,7 +19,7 @@ class Valid {
 	 *
 	 * @return  boolean
 	 */
-	public static function not_empty($value)
+	public static function notEmpty($value)
 	{
 		if (is_object($value) AND $value instanceof \ArrayObject)
 		{
@@ -50,7 +50,7 @@ class Valid {
 	 * @param   integer $length minimum length required
 	 * @return  boolean
 	 */
-	public static function min_length($value, $length)
+	public static function minLength($value, $length)
 	{
 		return mb_strlen($value,Core::$charset) >= $length;
 	}
@@ -62,7 +62,7 @@ class Valid {
 	 * @param   integer $length maximum length required
 	 * @return  boolean
 	 */
-	public static function max_length($value, $length)
+	public static function maxLength($value, $length)
 	{
 		return mb_strlen($value,Core::$charset) <= $length;
 	}
@@ -74,7 +74,7 @@ class Valid {
 	 * @param   integer|array   $length exact length required, or array of valid lengths
 	 * @return  boolean
 	 */
-	public static function exact_length($value, $length)
+	public static function exactLength($value, $length)
 	{
 		if (is_array($length))
 		{
@@ -151,9 +151,9 @@ class Valid {
 	 * @param   string  $email  email address
 	 * @return  boolean
 	 */
-	public static function email_domain($email)
+	public static function emailDomain($email)
 	{
-		if ( ! Valid::not_empty($email))
+		if ( ! Valid::notEmpty($email))
 			return FALSE; // Empty fields cause issues with checkdnsrr()
 
 		// Check if the email domain has a valid MX record
@@ -244,7 +244,7 @@ class Valid {
 	 * @param string $string
 	 * @return boolean
 	 */
-	public static function only_english($string){
+	public static function onlyEnglish($string){
 		if(empty($string)){
 			return false;
 		}
@@ -354,7 +354,7 @@ class Valid {
 	 * @param   boolean $utf8   trigger UTF-8 compatibility
 	 * @return  boolean
 	 */
-	public static function alpha_numeric($str, $utf8 = FALSE)
+	public static function alphaNumeric($str, $utf8 = FALSE)
 	{
 		if ($utf8 === TRUE)
 		{
@@ -373,7 +373,7 @@ class Valid {
 	 * @param   boolean $utf8   trigger UTF-8 compatibility
 	 * @return  boolean
 	 */
-	public static function alpha_dash($str, $utf8 = FALSE)
+	public static function alphaDash($str, $utf8 = FALSE)
 	{
 		if ($utf8 === TRUE)
 		{
@@ -509,7 +509,7 @@ class Valid {
 	 * @param string $id
 	 * @return boolean
 	 */
-	public static function china_id( $id )
+	public static function chinaId( $id )
 	{
 		$id = strtoupper($id);
 		$regx = "/(^\d{15}$)|(^\d{17}([0-9]|X)$)/";
@@ -568,7 +568,7 @@ class Valid {
 	 * @param string $id
 	 * @return boolean
 	 */
-	public static function china_mobile( $mobile )
+	public static function chinaMobile( $mobile )
 	{
 		return preg_match('/^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/si',trim($mobile));
 	} 
@@ -629,7 +629,7 @@ class Valid {
 	 * @param array $keys
 	 * @return bool
 	 */
-	public static function exist_keys(array $array,array $keys){
+	public static function existKeys(array $array,array $keys){
 		return count(array_diff($keys,array_keys($array)))==0;
 	}
 } // End Valid

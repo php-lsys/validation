@@ -32,7 +32,7 @@ class Validation implements \ArrayAccess {
 	/**
 	 * system default message
 	 */
-	public static function valid_messages($error=NULL){
+	public static function validMessages($error=NULL){
 		static $messsage;
 		if(!is_array($messsage)){
 			$messsage=array(
@@ -73,7 +73,7 @@ class Validation implements \ArrayAccess {
 	// Field labels
 	protected $_labels = array();
 	// Rules that are executed even when the value is empty
-	protected $_empty_rules = array('not_empty', 'matches');
+	protected $_empty_rules = array('notEmpty', 'matches');
 	// Error list, field => rule
 	protected $_errors = array();
 	// Message list ,filed => message
@@ -464,7 +464,7 @@ class Validation implements \ArrayAccess {
 	  				$passed = $method->invokeArgs(NULL, $params);
 	  			}
 	  			// Ignore return values from rules when the field is empty
-	  			if ( ! in_array($rule, $this->_empty_rules) AND ! Valid::not_empty($value))
+	  			if ( ! in_array($rule, $this->_empty_rules) AND ! Valid::notEmpty($value))
 	  				continue;
   				if ($passed === FALSE AND $error_name !== FALSE)
   				{
@@ -496,9 +496,9 @@ class Validation implements \ArrayAccess {
 	   * @throws Exception
 	   * @return $this
 	   */
-	  public function throw_check($msg = NULL,$translate = TRUE){
+	  public function throwCheck($msg = NULL,$translate = TRUE){
 	      if($this->check())return $this;
-	      throw (new \LSYS\Validation\Exception($msg))->set_validation_error($this->errors($translate));
+	      throw (new \LSYS\Validation\Exception($msg))->setValidationError($this->errors($translate));
 	  }
 	  
 	  /**
@@ -589,7 +589,7 @@ class Validation implements \ArrayAccess {
 	  			// Found a message for this field and error
 	  			$message=$this->_messages["{$field}.{$error}"];
 	  		}
-	  		elseif ($message = self::valid_messages($error) AND is_string($message))
+	  		elseif ($message = self::validMessages($error) AND is_string($message))
 	  		{
 	  			// Found a default message for this error
 	  		}

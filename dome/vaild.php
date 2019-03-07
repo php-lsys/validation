@@ -36,9 +36,9 @@ $validation->rule('username', 'not_empty')
 ;
 //批量添加规则
 // $validation->rules('nickname', array (
-// 		array('not_empty',array(':value')),
+// 		array('notEmpty',array(':value')),
 // 		array('in_array',array(':value', [1,2])),
-// 		array('max_length', array(':value', 32)),
+// 		array('maxLength', array(':value', 32)),
 // ));
 //进行校验
 if (!$validation->check()){
@@ -47,7 +47,7 @@ if (!$validation->check()){
 	exit;
 }
 //检测不通过抛出异常
-//$validation->throw_check();
+//$validation->throwCheck();
 //取出单个数据
 $username=$validation->get("username");
 //按指定KEY生成一个数组
