@@ -2,7 +2,6 @@
 	"name": "lsys/validation",
 	"type" : "library",
 	"license": "Apache-2.0",
-
 	"description" : "lsys module validation",
 	"autoload":{
 		"psr-4": {
