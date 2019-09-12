@@ -12,5 +12,9 @@
     "require": {
      	"lsys/core":"~2.1.0",
      	"lsys/i18n":"~2.1.0"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "~7.1.5",
+		"php-coveralls/php-coveralls":"~v2.0.0"
 	}
 }

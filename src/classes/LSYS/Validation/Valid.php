@@ -226,18 +226,10 @@ class Valid {
 	 * @param   boolean $allow_private  allow private IP networks
 	 * @return  boolean
 	 */
-	public static function ip($ip, $allow_private = TRUE)
+	public static function ip($ip)
 	{
 		// Do not allow reserved addresses
-		$flags = FILTER_FLAG_NO_RERANGE;
-
-		if ($allow_private === FALSE)
-		{
-			// Do not allow private or reserved addresses
-			$flags = $flags | FILTER_FLAG_NO_PRIV_RANGE;
-		}
-
-		return (bool) filter_var($ip, FILTER_VALIDATE_IP, $flags);
+		return (bool) filter_var($ip, FILTER_VALIDATE_IP);
 	}
 	/**
 	 * 是否纯英文
