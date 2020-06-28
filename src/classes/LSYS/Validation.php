@@ -145,7 +145,6 @@ class Validation implements \ArrayAccess {
 	 *
 	 * @param   array   $array  new data set
 	 * @return  Validation
-	 * @since   3.0.5
 	 */
 	public function copy(array $array)
 	{
@@ -171,7 +170,7 @@ class Validation implements \ArrayAccess {
 	 * @param mixed $default
 	 * @return string
 	 */
-	public function get($key,$default=null){
+	public function get(string $key,$default=null){
 	    if (array_key_exists($key, $this->_data))return $this->_data[$key];
 	    return $default;
 	}
@@ -183,7 +182,7 @@ class Validation implements \ArrayAccess {
 	 * @param boolean $fill
 	 * @return mixed[]
 	 */
-	public function gets(array $keys,$fill=FALSE){
+	public function gets(array $keys,bool $fill=FALSE){
 	    $out=array();
 	    if($fill){
 	        foreach ($keys as $k=>$v){
@@ -210,7 +209,7 @@ class Validation implements \ArrayAccess {
 	 * @param   string  $label  label
 	 * @return  $this
 	 */
-	public function label($field, $label)
+	public function label(string $field, string $label)
 	{
 		// Set the label for this field
 		$this->_labels[$field] = $label;
@@ -259,11 +258,11 @@ class Validation implements \ArrayAccess {
 	 * [!!] Errors must be added manually when using closures!
 	 *
 	 * @param   string      $field  field name
-	 * @param   array    $rule   valid PHP callback or closure
+	 * @param   array|callable    $rule   valid PHP callback or closure
 	 * @param   array       $params extra parameters for the rule
 	 * @return  $this
 	 */
-	 public function rule($field, $rule, array $params = NULL)
+	 public function rule(string $field, $rule, array $params = NULL)
 	 {
 	 	if ($params === NULL)
 	 	{
@@ -286,7 +285,7 @@ class Validation implements \ArrayAccess {
 	  * @param   array   $rules  list of callbacks dome array('comp',array(':value','>=',1))
 	  * @return  $this
 	  */
-	 public function rules($field, array $rules)
+	 public function rules(string $field, array $rules)
 	 {
 	 	foreach ($rules as $rule)
 	 	{
@@ -301,7 +300,7 @@ class Validation implements \ArrayAccess {
 	  *     $validation->bind(':model', $model)
 	  *         ->rule('status', 'valid_status', array(':model'));
 	  *
-	  * @param   string  $key    variable name or an array of variables
+	  * @param   string|array  $key    variable name or an array of variables
 	  * @param   mixed   $value  value
 	  * @return  $this
 	  */
@@ -327,7 +326,7 @@ class Validation implements \ArrayAccess {
 	  * @param   string 
 	  * @return  $this
 	  */
-	 public function message($field,$message){
+	 public function message(string $field,string $message){
 	 	// Set the label for this field
 	 	$this->_messages[$field] = $message;
 	 	return $this;
@@ -355,7 +354,7 @@ class Validation implements \ArrayAccess {
 	  *
 	  * @return  boolean
 	  */
-	  public function check()
+	  public function check():bool
 	  {
 	  	// New data set
 	  	$data = $this->_errors = array();
@@ -496,7 +495,7 @@ class Validation implements \ArrayAccess {
 	   * @throws Exception
 	   * @return $this
 	   */
-	  public function throwCheck($msg = NULL,$translate = TRUE){
+	  public function throwCheck(?string $msg = NULL,bool $translate = TRUE){
 	      if($this->check())return $this;
 	      throw (new \LSYS\Validation\Exception($msg))->setValidationError($this->errors($translate));
 	  }
@@ -509,7 +508,7 @@ class Validation implements \ArrayAccess {
 	   * @param   array   $params
 	   * @return  $this
 	   */
-	  public function error($field, $error, array $params = NULL)
+	  public function error(string $field, string $error, array $params = NULL)
 	  {
 	  	$this->_errors[$field] = array($error, $params);
 	  	return $this;
@@ -523,7 +522,7 @@ class Validation implements \ArrayAccess {
 	   *
 	   * @return  array
 	   */
-	  public function errors($translate = TRUE)
+	  public function errors(bool $translate = TRUE):array
 	  {
 	  	if ($translate === FALSE)
 	  	{
@@ -620,9 +619,8 @@ class Validation implements \ArrayAccess {
 	   *
 	   * @param   array   $array  array to flatten
 	   * @return  array
-	   * @since   3.0.6
 	   */
-	  private static function _flatten($array)
+	  private static function _flatten(array $array):array
 	  {
 	  	$keys = array_keys($array);
 	  	$is_assoc=array_keys($keys) !== $keys;

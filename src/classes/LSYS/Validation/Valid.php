@@ -19,7 +19,7 @@ class Valid {
 	 *
 	 * @return  boolean
 	 */
-	public static function notEmpty($value)
+	public static function notEmpty($value):bool
 	{
 		if (is_object($value) AND $value instanceof \ArrayObject)
 		{
@@ -38,7 +38,7 @@ class Valid {
 	 * @param   string  $expression regular expression to match (including delimiters)
 	 * @return  boolean
 	 */
-	public static function regex($value, $expression)
+	public static function regex($value, $expression):bool
 	{
 		return (bool) preg_match($expression, (string) $value);
 	}
@@ -50,9 +50,9 @@ class Valid {
 	 * @param   integer $length minimum length required
 	 * @return  boolean
 	 */
-	public static function minLength($value, $length)
+	public static function minLength(string $value, int $length):bool
 	{
-		return mb_strlen($value,Core::$charset) >= $length;
+		return mb_strlen($value,Core::charset()) >= $length;
 	}
 
 	/**
@@ -62,9 +62,9 @@ class Valid {
 	 * @param   integer $length maximum length required
 	 * @return  boolean
 	 */
-	public static function maxLength($value, $length)
+	public static function maxLength(string $value, int $length):bool
 	{
-		return mb_strlen($value,Core::$charset) <= $length;
+		return mb_strlen($value,Core::charset()) <= $length;
 	}
 
 	/**
@@ -74,19 +74,19 @@ class Valid {
 	 * @param   integer|array   $length exact length required, or array of valid lengths
 	 * @return  boolean
 	 */
-	public static function exactLength($value, $length)
+	public static function exactLength(string $value, $length):bool
 	{
 		if (is_array($length))
 		{
 			foreach ($length as $strlen)
 			{
-				if (mb_strlen($value,Core::$charset) === $strlen)
+				if (mb_strlen($value,Core::charset()) === $strlen)
 					return TRUE;
 			}
 			return FALSE;
 		}
 
-		return mb_strlen($value,Core::$charset) === $length;
+		return mb_strlen($value,Core::charset()) === $length;
 	}
 
 	/**
@@ -96,7 +96,7 @@ class Valid {
 	 * @param   string  $required   required value
 	 * @return  boolean
 	 */
-	public static function equals($value, $required)
+	public static function equals($value, $required):bool
 	{
 		return ($value === $required);
 	}
@@ -111,9 +111,9 @@ class Valid {
 	 * @param   boolean $strict strict RFC compatibility
 	 * @return  boolean
 	 */
-	public static function email($email, $strict = FALSE)
+	public static function email(string $email,bool $strict = FALSE):bool
 	{
-		if (mb_strlen($email,Core::$charset) > 254)
+		if (mb_strlen($email,Core::charset()) > 254)
 		{
 			return FALSE;
 		}
@@ -151,7 +151,7 @@ class Valid {
 	 * @param   string  $email  email address
 	 * @return  boolean
 	 */
-	public static function emailDomain($email)
+	public static function emailDomain(string $email):bool
 	{
 		if ( ! Valid::notEmpty($email))
 			return FALSE; // Empty fields cause issues with checkdnsrr()
@@ -166,7 +166,7 @@ class Valid {
 	 * @param   string  $url    URL
 	 * @return  boolean
 	 */
-	public static function url($url)
+	public static function url(string $url):bool
 	{
 		// Based on http://www.apps.ietf.org/rfc/rfc1738.html#sec-5
 		if ( ! preg_match(
@@ -226,7 +226,7 @@ class Valid {
 	 * @param   boolean $allow_private  allow private IP networks
 	 * @return  boolean
 	 */
-	public static function ip($ip)
+	public static function ip(string $ip):bool
 	{
 		// Do not allow reserved addresses
 		return (bool) filter_var($ip, FILTER_VALIDATE_IP);
@@ -236,7 +236,7 @@ class Valid {
 	 * @param string $string
 	 * @return boolean
 	 */
-	public static function onlyEnglish($string){
+	public static function onlyEnglish(string $string):bool{
 		if(empty($string)){
 			return false;
 		}
@@ -249,7 +249,7 @@ class Valid {
 	 * @param   string  $number number to check
 	 * @return  boolean
 	 */
-	public static function luhn($number)
+	public static function luhn($number):bool
 	{
 		// Force the value to be a string as this method uses string functions.
 		// Converting to an integer may pass PHP_INT_MAX and result in an error!
@@ -293,7 +293,7 @@ class Valid {
 	 * @param   array   $lengths
 	 * @return  boolean
 	 */
-	public static function phone($number, $lengths = NULL)
+	public static function phone(string $number, $lengths = NULL):bool
 	{
 		if ( ! is_array($lengths))
 		{
@@ -313,7 +313,7 @@ class Valid {
 	 * @param   string  $str    date to check
 	 * @return  boolean
 	 */
-	public static function date($str)
+	public static function date($str):bool
 	{
 		return (strtotime($str) !== FALSE);
 	}
@@ -325,7 +325,7 @@ class Valid {
 	 * @param   boolean $utf8   trigger UTF-8 compatibility
 	 * @return  boolean
 	 */
-	public static function alpha($str, $utf8 = FALSE)
+	public static function alpha($str, bool $utf8 = FALSE):bool
 	{
 		$str = (string) $str;
 
@@ -346,7 +346,7 @@ class Valid {
 	 * @param   boolean $utf8   trigger UTF-8 compatibility
 	 * @return  boolean
 	 */
-	public static function alphaNumeric($str, $utf8 = FALSE)
+	public static function alphaNumeric(string $str, bool $utf8 = FALSE):bool
 	{
 		if ($utf8 === TRUE)
 		{
@@ -365,7 +365,7 @@ class Valid {
 	 * @param   boolean $utf8   trigger UTF-8 compatibility
 	 * @return  boolean
 	 */
-	public static function alphaDash($str, $utf8 = FALSE)
+	public static function alphaDash(string $str,bool $utf8 = FALSE):bool
 	{
 		if ($utf8 === TRUE)
 		{
@@ -386,7 +386,7 @@ class Valid {
 	 * @param   boolean $utf8   trigger UTF-8 compatibility
 	 * @return  boolean
 	 */
-	public static function digit($str, $utf8 = FALSE)
+	public static function digit($str, bool $utf8 = FALSE):bool
 	{
 		if ($utf8 === TRUE)
 		{
@@ -407,7 +407,7 @@ class Valid {
 	 * @param   string  $str    input string
 	 * @return  boolean
 	 */
-	public static function numeric($str)
+	public static function numeric($str):bool
 	{
 		// Get the decimal point for the current locale
 		list($decimal) = array_values(localeconv());
@@ -425,7 +425,7 @@ class Valid {
 	 * @param   integer $step   increment size
 	 * @return  boolean
 	 */
-	public static function range($number, $min, $max, $step = NULL)
+	public static function range($number, $min, $max, $step = NULL):bool
 	{
 		if ($number <= $min OR $number >= $max)
 		{
@@ -452,7 +452,7 @@ class Valid {
 	 * @param   integer $digits number of digits
 	 * @return  boolean
 	 */
-	public static function decimal($str, $places = 2, $digits = NULL)
+	public static function decimal(string $str, $places = 2, $digits = NULL):bool
 	{
 		if ($digits > 0)
 		{
@@ -479,7 +479,7 @@ class Valid {
 	 * @param   string  $str    input string
 	 * @return  boolean
 	 */
-	public static function color($str)
+	public static function color(string $str):bool
 	{
 		return (bool) preg_match('/^#?+[0-9a-f]{3}(?:[0-9a-f]{3})?$/iD', $str);
 	}
@@ -492,7 +492,7 @@ class Valid {
 	 * @param   string  $match  field name to match
 	 * @return  boolean
 	 */
-	public static function matches($array, $field, $match)
+	public static function matches(array $array, $field, $match):bool
 	{
 		return ($array[$field] === $array[$match]);
 	}
@@ -501,7 +501,7 @@ class Valid {
 	 * @param string $id
 	 * @return boolean
 	 */
-	public static function chinaId( $id )
+	public static function chinaId(string $id ):bool
 	{
 		$id = strtoupper($id);
 		$regx = "/(^\d{15}$)|(^\d{17}([0-9]|X)$)/";
@@ -560,7 +560,7 @@ class Valid {
 	 * @param string $id
 	 * @return boolean
 	 */
-	public static function chinaMobile( $mobile )
+	public static function chinaMobile( string $mobile ):bool
 	{
 		return preg_match('/^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/si',trim($mobile));
 	} 
@@ -571,7 +571,7 @@ class Valid {
 	 * @param string $type
 	 * @return boolean
 	 */
-	public static function comp($left_operand,$right_operand,$type='='){
+	public static function comp($left_operand,$right_operand,$type='='):bool{
 		if (is_object($left_operand)) $left_operand=strval($left_operand);
 		if (is_object($right_operand)) $right_operand=strval($right_operand);
 		if (!is_string($right_operand)&&!is_numeric($right_operand))return;
@@ -621,7 +621,7 @@ class Valid {
 	 * @param array $keys
 	 * @return bool
 	 */
-	public static function existKeys(array $array,array $keys){
+	public static function existKeys(array $array,array $keys):bool{
 		return count(array_diff($keys,array_keys($array)))==0;
 	}
 } // End Valid
