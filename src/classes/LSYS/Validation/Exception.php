@@ -14,7 +14,7 @@ class Exception extends \LSYS\Exception{
      * @var integer
      */
     const VALIDATION_CODE=9527;
-    public function __construct(string $message = NULL, $code =self::VALIDATION_CODE, \Exception $previous = NULL)
+    public function __construct(string $message = NULL, ?int $code =self::VALIDATION_CODE, \Exception $previous = NULL)
     {
         $message=$message?$message:__("data valid fail");
         parent::__construct($message, $code, $previous);
