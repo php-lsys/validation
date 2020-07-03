@@ -574,7 +574,7 @@ class Valid {
 	public static function comp($left_operand,$right_operand,$type='='):bool{
 		if (is_object($left_operand)) $left_operand=strval($left_operand);
 		if (is_object($right_operand)) $right_operand=strval($right_operand);
-		if (!is_string($right_operand)&&!is_numeric($right_operand))return;
+		if (!is_string($right_operand)&&!is_numeric($right_operand))return false;
 		switch ($type){
 			case '=':
 			case '==':
@@ -614,6 +614,7 @@ class Valid {
 				return $left_operand<=$right_operand;
 				break;
 		}
+		return false;
 	}
 	/**
 	 * $keys is exist on $array[key]
