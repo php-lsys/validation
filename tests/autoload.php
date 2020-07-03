@@ -10,7 +10,12 @@ if (is_file(__DIR__ . '/../vendor/autoload.php')) {
 }
 
 $load->setPsr4("TestLSYSVaild\\",[__DIR__."/classes/TestLSYSVaild/"]);
-
+LSYS\Core::sets(array(
+    //定义编码
+	"charset"              => "utf-8",
+    //定义开发环境
+    "environment"		   => LSYS\Core::DEVELOP
+));
 function __($string, array $values = NULL, $domain = "default")
 {
     $i18n=\LSYS\I18n\DI::get()->i18n(__DIR__."/I18n/");
